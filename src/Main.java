@@ -11,7 +11,11 @@ public class Main {
     private static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
+        System.out.println("Домашнее задание к занятию 1.3\n" +
+                "Потоки ввода-вывода. Работа с файлами. Сериализация\n" +
+                "Задача 3: Загрузка\n");
 
+        sb.append("\r\n");
         String savePath = "T:" + SEP + "Program Files" + SEP + "Games" + SEP + "savegames";
         String zipPath = savePath + SEP + "zipped.zip";
         String logPath = "T:" + SEP + "Program Files" + SEP + "Games" + SEP + "temp" + SEP + "temp.txt";
@@ -23,6 +27,7 @@ public class Main {
         for (File file : files) {
             if (file.getName().contains(SAVE_EXT)) {
                 saveList.add(file);
+                file.delete();
             }
         }
         GameProgress[] gps = new GameProgress[saveList.size()];
@@ -39,6 +44,7 @@ public class Main {
                     .append(temp)
                     .append("\r\n");
         }
+        log(sb.toString(), logPath);
     }
 
     private static void openZip(String inPath, String outPath) {
@@ -57,7 +63,7 @@ public class Main {
                     zis.closeEntry();
                     fos.close();
                     ldt = LocalDateTime.now();
-                    temp = "Объект " + name + " распакован";
+                    temp = "Объект " + entry.getName() + " распакован";
                     System.out.println(temp);
                     sb
                             .append(ldt)
